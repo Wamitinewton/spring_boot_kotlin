@@ -4,7 +4,9 @@ import com.newton.spring_boot_kotlin.database.model.Note
 import com.newton.spring_boot_kotlin.database.repository.NoteRepository
 import com.newton.spring_boot_kotlin.mappers.toResponse
 import org.bson.types.ObjectId
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -47,6 +49,11 @@ class NoteController(
             )
         )
         return note.toResponse()
+    }
+
+    @DeleteMapping(path = ["/{id}"])
+    fun deleteById(@PathVariable id: String) {
+        noteRepository.deleteById(ObjectId(id))
     }
 
     @GetMapping
